@@ -1,5 +1,5 @@
 {% extends 'ecomm/base.html' %}
-
+{% load static %}
 {% block title %}
     <title>{{ product.name }}</title>
 {% endblock %}
@@ -10,42 +10,63 @@
 
 <div class="container-lg">
     <div class="row">
-
-            <div class="col">
-                <img src="{% if product.image %}{{product.image_in_product.url}}{% endif %}" class="img-fluid">
+        <div class="col">
+            <a href="{{ product.image.url }}" data-fslightbox="images">
+            <img
+              class="img-fluid"
+              src="{{product.image_in_product.url}}"
+            />
+            </a>
+            {% if product.images.all %}
+            <div class="images">
+                {% for prod_image in product.images.all %}
+                    <a href="{{ prod_image.product_image.url }}" data-fslightbox="images">
+                    <img
+                        class="img-fluid"
+                        src="{{ prod_image.product_image_thumbnail.url }}"
+                        alt="{{ prod_image.title }}"
+                    />
+                    </a>
+                {% endfor %}
             </div>
-            <div class="col">
-                <div class="info">
-                    <div class="mb-4">
-                        <h1 class="title">{{ product.name }}</h1>
-                    </div>
-                    <div class="mt-2">
-                        <h5 class="text">Цена: {{ product.price }}</h5>
-                        <p class="text">
-                            <form action="{% url 'cart:cart_add' product.id %}" method="post">
-                                {{ cart_product_form }}
-                                {% csrf_token %}
-                                <input class="btn btn-success" type="submit" value="Add to cart">
-                             </form>
-                        </p>
-                    </div>
-                    <div class="text mt-4">
-                        <h2 class="text">Описание</h2>
-                        <p>{{ product.description }}</p>
-                    </div>
+            {% endif %}
+        </div>
+
+        <div class="col">
+            <div class="info">
+                <div class="mb-4">
+                  <h1 class="title">{{ product.name }}</h1>
+                </div>
+                <div class="mt-2">
+                  <h5 class="text">Цена: {{ product.price }}</h5>
+                  <p class="text">
+                    <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                      {{ cart_product_form }}
+                      {% csrf_token %}
+                      <input class="btn btn-success" type="submit" value="Add to cart">
+                    </form>
+                  </p>
+                </div>
+                <div class="text mt-4">
+                  <h2 class="text">Описание</h2>
+                  <p>{{ product.description }}</p>
                 </div>
             </div>
+        </div>
     </div>
-    <div class="col">
-    <hr/>
-    <h3 class="text">Характеристики товара:</h3>
-        {% for spec in product.productspecificationvalue_set.all %}
-            <p>{{ spec.specification }} - {{ spec.value }}</p>
-        {% endfor %}
+
+    <div class="row">
+        <div class="col">
+        <hr/>
+        <h3 class="text">Характеристики товара:</h3>
+            {% for spec in product.productspecificationvalue_set.all %}
+                <p>{{ spec.specification }} - {{ spec.value }}</p>
+            {% endfor %}
+        </div>
     </div>
 </div>
 
-
+<script src="{% static 'ecomm/js/fslightbox.js' %}"></script>
 {% endblock %}
 
 

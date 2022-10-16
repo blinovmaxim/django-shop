@@ -1,54 +1,69 @@
-
-
 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 bg-dark">
-    <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none">
-        <span class="fs-5 d-none d-sm-inline">Filters</span>
+    <a href="#" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none">
+      <span class="fs-5 d-none d-sm-inline">Filters</span>
     </a>
 
     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-        {% for spec in specification %}
+        {% for specification in specifications %}
         <li>
             <a href="#submenu{{ forloop.counter }}" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">{{ spec }}</span></a>
+                <i class="fs-4 bi-speedometer2"></i>
+                <span class="ms-1 d-none d-sm-inline"><b>{{ specification }}</b></span>
+            </a>
             <ul class="collapse show nav flex-column ms-1" id="submenu{{ forloop.counter }}" data-bs-parent="#menu">
                 {% if forloop.counter == 1 %}
-                {% for s in size %}
-                <li class="w-100">
-                    <a href="/filter?query={{ s }}&product_type={{ product.category.name }}" class="nav-link px-0"><span class="d-none d-sm-inline">{{ s }}</span></a>
-                </li>
-                {% endfor %}
+                    {% for size in sizes %}
+                        <li class="w-100">
+                            <a href="/filter?query={{size}}&product_type={{product.category.name}}"
+                               class="nav-link px-0">
+                                 <span class="d-none d-sm-inline">{{size}}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
                 {% endif %}
 
                 {% if forloop.counter == 2 %}
-                {% for color in colors %}
-                <li class="w-100">
-                    <a href="/filter?query={{ сolor }}&product_type={{ product.category.name }}" class="nav-link px-0"><span class="d-none d-sm-inline">{{ color }}</span></a>
-                </li>
-                {% endfor %}
+                    {% for color in colors %}
+                        <li class="w-100">
+                            <a href="/filter?query={{color}}&product_type={{product.category.name}}"
+                               class="nav-link px-0">
+                                 <span class="d-none d-sm-inline">{{color}}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
                 {% endif %}
 
                 {% if forloop.counter == 3 %}
-                {% for b in brand %}
-                <li class="w-100">
-                    <a href="/filter?query={{ b }}&product_type={{ product.category.name }}" class="nav-link px-0"><span class="d-none d-sm-inline">{{ b }}</span></a>
-                </li>
-                {% endfor %}
+                    {% for brand in brands %}
+                        <li class="w-100">
+                            <a href="/filter?query={{brand}}&product_type={{product.category.name}}"
+                               class="nav-link px-0">
+                                 <span class="d-none d-sm-inline">{{brand}}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
                 {% endif %}
 
                 {% if forloop.counter == 4 %}
-                {% for cou in country %}
-                <li class="w-100">
-                    <a href="/filter?query={{cou}}&product_type={{ product.category.name }}" class="nav-link px-0"><span class="d-none d-sm-inline">{{ cou }}</span></a>
-                </li>
-                {% endfor %}
+                    {% for country in countries %}
+                        <li class="w-100">
+                            <a href="/filter?query={{country}}&product_type={{product.category.name}}"
+                               class="nav-link px-0">
+                                 <span class="d-none d-sm-inline">{{country}}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
                 {% endif %}
 
                 {% if forloop.counter == 5 %}
-                {% for m in material %}
-                <li class="w-100">
-                    <a href="/filter?query={{ m }}&product_type={{ product.category.name }}" class="nav-link px-0"><span class="d-none d-sm-inline">{{ m }}</span></a>
-                </li>
-                {% endfor %}
+                    {% for material in materials %}
+                        <li class="w-100">
+                            <a href="/filter?query={{material}}&product_type={{product.category.name}}"
+                                class="nav-link px-0">
+                                <span class="d-none d-sm-inline">{{material}}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
                 {% endif %}
             </ul>
         </li>

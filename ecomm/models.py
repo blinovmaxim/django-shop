@@ -166,3 +166,21 @@ class ProductSpecificationValue(models.Model):
 
     def __str__(self):
         return self.value
+
+
+class ProductImages(models.Model):
+    product_image = models.ImageField(upload_to="product/%Y", blank=True, null=True, verbose_name="Фото")
+    title = models.CharField(max_length=100, blank=True, null=True, verbose_name='title')
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING, related_name="images")
+
+    product_image_thumbnail = ImageSpecField(source='product_image',
+                                             processors=[ResizeToFill(150, 150)],
+                                             format='JPEG',
+                                             options={'quality': 60})
+
+    class Meta:
+        verbose_name = "Product Image"
+        verbose_name_plural = "Product Images"
+
+    def __str__(self):
+        return self.title

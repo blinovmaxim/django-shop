@@ -26,12 +26,18 @@ class ProductSpecificationValueInline(admin.TabularInline):
     model = ProductSpecificationValue
 
 
+class ProductImages(admin.TabularInline):
+    model = ProductImages
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    inlines = [ProductSpecificationValueInline, ]
+    inlines = [ProductSpecificationValueInline, ProductImages]
     list_display = ('id', 'name', 'created', 'image', 'image_img', 'available', 'price')
     readonly_fields = ['image_img', ]
     list_display_links = ('id', 'name')
     search_fields = ('name', 'price')
     list_filter = ('available', 'created', 'category')
     prepopulated_fields = {"slug": ('name',)}
+
+
