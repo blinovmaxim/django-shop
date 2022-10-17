@@ -2,7 +2,7 @@
 {% load mptt_tags %}
 {% load i18n %}
 {% load account %}
-
+{% url 'cart:cart_detail' as cart_url %}
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark nav-fill">
   <div class="container-lg">
@@ -21,7 +21,9 @@
               <ul class="dropdown-menu dropdown-menu-dark" data-bs-toggle="dropdown">
                   {% for c in category_tree %}
                     {% if c.is_root_node %}
-                    <li><a class="dropdown-item" href="{{ c.get_absolute_url}}">{{ c.name }}</a></li>
+                    <li>
+                        <a class="dropdown-item" href="{{ c.get_absolute_url}}">{{ c.name }}</a>
+                    </li>
                     {% else %}
                         <ul class="dropdown-submenu-left">
                             <li><a class="dropdown-item" href="{{ c.get_absolute_url}}">{{ c.name }}</a></li>
@@ -35,8 +37,27 @@
             {% include 'search_form.html' %}
           </li>
 
-          <li class="nav-item">
-              <a href="{% url 'cart:cart_detail' %}" class="nav-link">Cart</a>
+          <li class="nav-image" data-bs-toggle="tooltip" data-bs-placement="bottom"
+              title="{% with total_items=cart|length %}
+                        {% if cart|length > 0 %}
+                            Your cart:
+                            {{ total_items }} item{{ total_items|pluralize }},
+                                ${{ cart.get_total_price }}
+                        {% else %}
+                            Your cart is empty.
+                        {% endif %}
+                     {% endwith %}">
+              <a class="nav-link" href={{cart_url}}>
+                  {% if request.session.counter_items %}
+                        {{ request.session.counter_items }}
+                           <img class="inline_label" alt="{% trans 'Cart' %}" width="30"
+                                height="24"
+                                src="{% static 'ecomm/images/shopping_cart_full.svg' %}">
+                  {% else %}
+                  <img class="inline_label" alt="{% trans 'Cart' %}" width="30"
+                       height="24"
+                       src="{% static 'ecomm/images/shopping_cart.svg' %}">
+                  {% endif %}</a>
           </li>
 
           {% block account %}
