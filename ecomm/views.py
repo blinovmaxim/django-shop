@@ -52,6 +52,16 @@ def category_page(request, slug):
             products = category.product_set.all()[:int(sort)]
             context['products'] = products
 
+        order_min = request.GET.get('order_min')
+        if order_min:
+            products = category.product_set.all().order_by('price')
+            context['products'] = products
+
+        order_max = request.GET.get('order_max')
+        if order_max:
+            products = category.product_set.all().order_by('-price')
+            context['products'] = products
+
         return render(request, 'ecomm/category_children.html', context=context)
 
 

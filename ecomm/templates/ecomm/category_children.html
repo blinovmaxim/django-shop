@@ -21,6 +21,11 @@
                     <li><a class="dropdown-item" href="/category/{{ category.slug }}/?sort=5">5</a></li>
                     <li><a class="dropdown-item" href="/category/{{ category.slug }}/?sort=10">10</a></li>
                 </ul>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Сортировка по цене</button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="/category/{{ category.slug }}/?order_min=true">От дешевых к дорогим</a></li>
+                    <li><a class="dropdown-item" href="/category/{{ category.slug }}/?order_max=true">От дорогих к дешевым</a></li>
+                </ul>
             </div>
         </div>
         {% endif %}
