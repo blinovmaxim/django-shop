@@ -33,3 +33,4 @@ class UserProfile(models.Model):
             if len(result):
                 return result[0].verified
         return False
+

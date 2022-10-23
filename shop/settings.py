@@ -43,12 +43,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'django.contrib.sites',
     'ecomm',
     'cart',
     'mptt',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'users',
     'debug_toolbar',
     'send_mail',
@@ -96,6 +98,7 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 
 MPTT_ADMIN_LEVEL_INDENT = 50
 
+SITE_ID = 1
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -136,7 +139,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.SignupForm'
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'none' #'mandatory'
+SOCIALACCOUNT_AUTO_SIGNUP = False
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -189,6 +193,18 @@ EMAIL_HOST_USER = 'blinov.maxim@gmail.com'
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
 
 # Liqpay keys
 LIQPAY_PUBLIC_KEY = env('LIQPAY_PUBLIC_KEY')

@@ -6,6 +6,15 @@ from cart.cart import CartLogic
 
 def order_create(request):
     cart = CartLogic(request)
+
+    total_price = 0
+    for item in cart.cart.values():
+        item_sum = item['quantity'] * int(float(item['price']))
+        total_price += item_sum
+
+    cart.__dict__['total_price'] = total_price
+    print(cart.__dict__)
+
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid():
@@ -21,5 +30,6 @@ def order_create(request):
                           {'order': order})
     else:
         form = OrderCreateForm
+
     return render(request, 'orders/order/create.html',
                   {'cart': cart, 'form': form})
