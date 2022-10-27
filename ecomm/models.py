@@ -154,6 +154,9 @@ class Product(models.Model):
             return self.name
         return self.name[:40]
 
+    def get_comments(self):
+        return self.comments.order_by("-created_at")
+
 
 class ProductSpecificationValue(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

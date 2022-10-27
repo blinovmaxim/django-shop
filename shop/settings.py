@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'filter',
     'imagekit',
     'orders',
+    'comments',
 ]
 
 MIDDLEWARE = [

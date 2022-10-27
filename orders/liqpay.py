@@ -19,7 +19,8 @@ def get_liqpay_params(total_price):
               "description": "buy in test shop",
               "order_id": f"{generate_random_order_id()}",
               "language": "ru",
-              "result_url": "http://127.0.0.1:8000/orders/thanks/"
+              "result_url": "http://127.0.0.1:8000/orders/thanks/",
+              "server_url": "http://127.0.0.1:8000/orders/thanks/"
               }
 
     json_string = json.dumps(params)

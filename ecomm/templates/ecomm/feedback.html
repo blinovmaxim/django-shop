@@ -36,7 +36,8 @@
             <!--Message from Backend-->
             {% for message in messages %}
                 {% if message.tags == 'success' %}
-                    <div>{{ message }}
+                    <div>
+                        {{message}}
                         <a href="{% url 'ecomm:feedback' %}"></a>
                     </div>
                 {% endif %}

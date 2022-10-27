@@ -34,4 +34,5 @@ def order_create(request):
 
 
 def thanks_page(request):
+    # del request.session['counter_items']
     return render(request, 'orders/order/thanks.html')
