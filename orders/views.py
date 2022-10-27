@@ -3,6 +3,7 @@ from .models import OrderItem
 from .forms import OrderCreateForm
 from cart.cart import CartLogic
 from .liqpay import get_liqpay_params
+from ecomm.models import Product
 
 
 def order_create(request):
@@ -34,5 +35,15 @@ def order_create(request):
 
 
 def thanks_page(request):
-    # del request.session['counter_items']
+    cart = request.session['cart']
+
+    # del request.session['uuid']
+    request.session['cart'] = {}
+    request.session['counter_items'] = 0
+
+    for key, value in cart.items():
+        product = Product.objects.get(pk=key)
+        product.quantity -= value['quantity']
+        product.save()
+
     return render(request, 'orders/order/thanks.html')
