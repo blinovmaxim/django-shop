@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'django.contrib.sites',
+    'django.contrib.sites',
     'ecomm',
     'cart',
     'mptt',
@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 
 MPTT_ADMIN_LEVEL_INDENT = 50
 
-SITE_ID = 1
+SITE_ID = 2
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
