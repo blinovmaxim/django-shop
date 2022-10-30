@@ -13,8 +13,8 @@ class Comment(models.Model):
         db_index=True,
     )
     message = models.TextField("comment", db_index=True)
-    name = models.CharField("name", max_length=50)
-    email = models.CharField("email", max_length=50)
+    name = models.CharField("name", max_length=50, null=True, blank=True)
+    email = models.CharField("email", max_length=50, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True)
 

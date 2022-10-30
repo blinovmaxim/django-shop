@@ -1,36 +1,54 @@
 {% extends 'ecomm/base.html' %}
 {% load i18n %}
 {load account %}
-{% block content %}
 {% load static %}
-{% if user.is_authenticated %}
-<a href="{% url 'users:profile_update' %}">Update Profile</a> | <a href="{% url 'account_email' %}">Manage Email</a>  | <a href="{% url 'account_change_password' %}">Change Password</a> |
-<a href="{% url 'account_logout' %}">Logout</a>
-{% endif %}
-<p>Welcome, {{ user.username }}.</p>
-
-
-<h2>My Profile</h2>
-{% if not user.profile.account_verified %}
-    (Unverified email.)
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock %}
+{% block content %}
+<div class="container-lg">
+    {% if user.is_authenticated %}
+    <a href="{% url 'users:profile_update' %}" class="btn btn-primary"  role="button" >Update Profile</a>
+        | <a href="{% url 'account_email' %}"class="btn btn-primary"  role="button" >Manage Email</a>
+        | <a href="{% url 'account_change_password' %}"class="btn btn-primary"  role="button" >Change Password</a>
+        |
+    <a href="{% url 'account_logout' %}"class="btn btn-primary"  role="button" >Logout</a>
     {% endif %}
-<form method="POST" enctype="multipart/form-data">
-<ul>
-    <li>First Name: {{ user.first_name }} </li>
-    <li>Last Name: {{ user.last_name }} </li>
-    <li>Organization: {{ user.profile.org }} </li>
-    <li>Telephone: {{ user.profile.telephone }} </li>
-    <li>Sex: {{ user.profile.sex }} </li>
-    <li>birthday: {{ user.profile.birthday }} </li>
-</ul>
-    <div class="column is-4">
-        {% if user.profile.photo %}
-            <div class="box">
-                <figure class="image">
-                    <img src="{{ user.profile.photo.url }}" />
-                </figure>
+    <h3>Welcome, {{ user.username }}.</h3>
+        <div class="row">
+            <div class="col">
+                {% if user.profile.photo %}
+                <a href="{{ user.profile.photo.url }}" data-fslightbox="images">
+                <img
+                  class="img-fluid"
+                  src="{{user.profile.image_in_profile.url}} "
+                />
+                </a>
+                {% else %}
+                   <a href='#' data-fslightbox="images">
+                   <img class="img-fluid" src={% static 'ecomm/images/no_foto.png' %} alt="user.profile.image"/></a>
+                {% endif %}
             </div>
-        {% endif %}
-    </div>
-
+            <div class="col">
+                <div class="info">
+                    <div class="mb-4">
+                      <h1 class="title">My Profile</h1>
+                    </div>
+                    <div class="mt-2">
+                      <h5 class="text">First Name: {{ user.first_name }}</h5>
+                       <h5 class="text">Last Name: {{ user.last_name }}</h5>
+                    </div>
+                    <div class="text mt-4">
+                      <h2 class="text">Information</h2>
+                      <li>Country: {{ user.profile.country }} </li>
+                      <li>City: {{ user.profile.city }} </li>
+                      <li>Telephone: {{ user.profile.telephone }} </li>
+                      <li>Sex: {{ user.profile.sex }} </li>
+                      <li>birthday: {{ user.profile.birthday }} </li>
+                        <p> {{ myorders }} {{ orderitems }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
 {% endblock %}

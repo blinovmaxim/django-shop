@@ -75,8 +75,12 @@ def feedback(request):
                                                    'myapi': GOOGLE_MAPS_API_KEY})
 
 
-def something(request):
-    return render(request, 'ecomm/something.html', {'title': 'Что то полезное'})
+def policy(request):
+    return render(request, 'ecomm/policy.html', {'title': 'Политика Конфеденциальности'})
+
+
+def shipping_and_payment(request):
+    return render(request, 'ecomm/shipping_and_payment.html', {'title': 'Доставка и оплата'})
 
 
 def about(request):

@@ -8,7 +8,8 @@ class ProfileForm(forms.ModelForm):
         fields = (
             "first_name",
             "last_name",
-            "org",
+            "country",
+            "city",
             "telephone",
             "photo",
             'sex',
@@ -20,10 +21,7 @@ class ProfileForm(forms.ModelForm):
         }
 
 
-
-
 class SignupForm(forms.Form):
-
     def signup(self, request, user):
         user_profile = UserProfile()
         user_profile.user = user
