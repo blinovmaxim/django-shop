@@ -16,37 +16,66 @@
 
     <h2>Написать нам</h2>
     <div>
-        <span>SEND EMAILS</span>
-        <div>
+        <div class="col-lg-8">
             <form action="/send_mail" method="POST" enctype="multipart/form-data" autocomplete="off">
                 {% csrf_token %}
-                <div>
-                    <span>Name</span>
-                    <input type="text" class="form-control" name="name" maxlength="40" placeholder="Your Name" required>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <span>Name</span>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="name" maxlength="40" placeholder="Your Name" required>
+                        </div>
+                    </div>
+                     <div class="col-lg-6">
+                        <span>Email</span>
+                         <div class="input-group mb-3">
+                             <input type="email" class="form-control" name="email" maxlength="40" placeholder="Your email" required>
+                         </div>
+                     </div>
+                    <div class="col-12">
+                        <textarea class="form-control mt-3" rows="7" name="message" placeholder="Type your message here.."  required></textarea>
+{#
+                    </div>
                 </div>
-                 <div>
-                    <span>Email</span>
-                    <input type="email" class="form-control" name="email" maxlength="40" placeholder="Your email" required>
-                </div>
-                <div>
-                    <textarea class="from-control" rows="7" name="message" placeholder="Type your message here.." required></textarea>
-                </div>
-                <button type="submit">Send email</button>
+                <button type="submit" class="btn btn-primary">Send email</button>
             </form>
             <!--Message from Backend-->
-            {% for message in messages %}
-                {% if message.tags == 'success' %}
-                    <div>
-                        {{message}}
-                        <a href="{% url 'ecomm:feedback' %}"></a>
-                    </div>
-                {% endif %}
-            {% endfor %}
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'success_send' %}
+                        <script  src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+                        <script>
+                            $ (document).ready(function () {
+                                $("#Mymessage").modal('show');
+                                }
+                            );
+                        </script>
+                    {% endif %}
+                            <div class="modal fade" id="Mymessage" tabindex="-1" aria-labelledby="MymessageLabel" aria-hidden="true">
+                                         <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="Mymessage"><i class="fas fa-biohazard"></i>&nbsp;&nbsp;  Perfect!!</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                                                          </div>
+                                                              <div class="modal-body text-center">
+                                                                      <div class="text-center text-success mt-3">
+                                                                        <i class="fa fa-check-circle" style="font-size:70px;color:#a5dc86;"></i>
+                                                                      </div>
+                                                                  <br>
+                                                                  <div class="mb-3">{{ message }}</div>
+                                                              </div>
+                                                          <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                                    </div>
+                                                </div>
+                                         </div>
+        </div>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 </div>
-
 {% endblock %}
-
 
 
