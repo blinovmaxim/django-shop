@@ -178,7 +178,7 @@ if DEBUG:
 
 LOGIN_REDIRECT_URL = '/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 LOGIN_URL = '/'
 
@@ -190,7 +190,7 @@ INTERNAL_IPS = [
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'blinov.maxim@gmail.com'
+EMAIL_HOST_USER = 'test.shop.1337@gmail.com'
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
@@ -210,3 +210,6 @@ SOCIALACCOUNT_PROVIDERS = {
 # Liqpay keys
 LIQPAY_PUBLIC_KEY = env('LIQPAY_PUBLIC_KEY')
 LIQPAY_PRIVATE_KEY = env('LIQPAY_PRIVATE_KEY')
+
+
+MESSAGE_TAGS = {50: 'success_send'}
